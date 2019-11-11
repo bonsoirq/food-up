@@ -56,12 +56,16 @@ namespace FoodUp.Web.Controllers
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create([Bind("Id,Login,Password,Birthday")] User user)
     {
+      if (UserExists(user.Login))
+      {
+        return UnprocessableEntity();
+      }
       if (ModelState.IsValid)
       {
         user.EncryptPassword();
         _context.Add(user);
         await _context.SaveChangesAsync();
-        return RedirectToAction(nameof(Index));
+        return RedirectToAction(nameof(HomeController.Index));
       }
       return View(user);
     }
@@ -87,7 +91,7 @@ namespace FoodUp.Web.Controllers
     // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int id, [Bind("Id,Login,EncryptedPassword,Birthday")] User user)
+    public async Task<IActionResult> Edit(int id, [Bind("Birthday")] User user)
     {
       if (id != user.Id)
       {
@@ -149,6 +153,16 @@ namespace FoodUp.Web.Controllers
     private bool UserExists(int id)
     {
       return _context.User.Any(e => e.Id == id);
+    }
+
+    private bool UserExists(string login)
+    {
+      return FindUser(login) != null;
+    }
+
+    private User FindUser(string login)
+    {
+      return _context.User.Where(x => x.Login == login).First();
     }
   }
 }

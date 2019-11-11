@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using dotenv.net;
 
 namespace FoodUp.Web
 {
@@ -58,6 +59,7 @@ namespace FoodUp.Web
                   name: "default",
                   pattern: "{controller=Home}/{action=Index}/{id?}");
       });
+      DotEnv.Config();
     }
   }
 }

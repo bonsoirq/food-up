@@ -3,12 +3,19 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FoodUp.Web.Data
 {
-    public class FoodUpContext : DbContext
+  public class FoodUpContext : DbContext
+  {
+    public FoodUpContext(DbContextOptions<FoodUpContext> options) : base(options)
     {
-        public FoodUpContext(DbContextOptions<FoodUpContext> options) : base(options)
-        {
-        }
-
-        public DbSet<User> User { get; set; }
     }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+      modelBuilder.Entity<User>()
+          .HasAlternateKey(c => c.Login)
+          .HasName("AK_Login");
+    }
+
+    public DbSet<User> User { get; set; }
+  }
 }
