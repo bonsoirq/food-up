@@ -40,7 +40,7 @@ namespace FoodUp.Web.Controllers
       var user = FindUser(login);
       if (PasswordMatches(user, password))
       {
-        AppendSessionCookie();
+        AppendUserSessionCookie(user);
         return Redirect("/");
       }
       return Unauthorized("Invalid login or password");
@@ -68,7 +68,7 @@ namespace FoodUp.Web.Controllers
       return BCrypt.Net.BCrypt.Verify(password, encryptedPassword);
     }
 
-    private void AppendSessionCookie()
+    private void AppendUserSessionCookie(User user)
     {
       Response.Cookies.Append(
         "_session",
