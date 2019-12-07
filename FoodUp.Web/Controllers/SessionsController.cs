@@ -40,16 +40,10 @@ namespace FoodUp.Web.Controllers
       var user = FindUser(login);
       if (PasswordMatches(user, password))
       {
-        Response.Cookies.Append(
-        "_session",
-        JWTUtil.GenerateUserToken(user),
-        new CookieOptions()
-        {
-          HttpOnly = true
-        });
+        AppendSessionCookie();
         return Redirect("/");
       }
-      return Unauthorized();
+      return Unauthorized("Invalid login or password");
     }
 
     public IActionResult Delete()
@@ -72,6 +66,17 @@ namespace FoodUp.Web.Controllers
     {
       var encryptedPassword = user.EncryptedPassword;
       return BCrypt.Net.BCrypt.Verify(password, encryptedPassword);
+    }
+
+    private void AppendSessionCookie()
+    {
+      Response.Cookies.Append(
+        "_session",
+        JWTUtil.GenerateUserToken(user),
+        new CookieOptions()
+        {
+          HttpOnly = true
+        });
     }
   }
 }
