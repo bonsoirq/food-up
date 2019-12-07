@@ -16,18 +16,26 @@ namespace FoodUp.Web.Controllers
     {
       _context = context;
     }
-    public IActionResult Create()
+    public async Task<IActionResult> Create()
     {
+      if (await this.CurrentUser(_context) != null)
+      {
+        return Redirect("/");
+      }
       return View();
     }
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Create(string login, string password)
+    public async Task<IActionResult> Create(string login, string password)
     {
+      if (await this.CurrentUser(_context) != null)
+      {
+        return Redirect("/");
+      }
       if (!UserExists(login))
       {
-        return NotFound();
+        return NotFound("Invalid login or password");
       }
       var user = FindUser(login);
       if (PasswordMatches(user, password))
@@ -41,7 +49,7 @@ namespace FoodUp.Web.Controllers
         });
         return Redirect("/");
       }
-    return Unauthorized();
+      return Unauthorized();
     }
 
     public IActionResult Delete()
@@ -57,7 +65,7 @@ namespace FoodUp.Web.Controllers
 
     private User FindUser(string login)
     {
-      return _context.User.Where(x => x.Login == login).First();
+      return _context.User.Where(x => x.Login == login).FirstOrDefault();
     }
 
     private bool PasswordMatches(User user, string password)

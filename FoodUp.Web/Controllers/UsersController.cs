@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using FoodUp.Web.Data;
 using FoodUp.Web.Models;
+using FoodUp.Web.Util;
 
 namespace FoodUp.Web.Controllers
 {
@@ -50,7 +51,7 @@ namespace FoodUp.Web.Controllers
     }
 
     // POST: Users/Create
-    // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+    // To protect from overposting attacks, please enable the specific properties you want to bind to, for
     // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
@@ -58,7 +59,7 @@ namespace FoodUp.Web.Controllers
     {
       if (UserExists(user.Login))
       {
-        return UnprocessableEntity();
+        return UnprocessableEntity("This login has been taken");
       }
       if (ModelState.IsValid)
       {
@@ -78,6 +79,12 @@ namespace FoodUp.Web.Controllers
         return NotFound();
       }
 
+      var currentUser = await this.CurrentUser(_context);
+      if (currentUser == null || currentUser.Id != id)
+      {
+        return Unauthorized();
+      }
+
       var user = await _context.User.FindAsync(id);
       if (user == null)
       {
@@ -87,12 +94,17 @@ namespace FoodUp.Web.Controllers
     }
 
     // POST: Users/Edit/5
-    // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+    // To protect from overposting attacks, please enable the specific properties you want to bind to, for
     // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Edit(int id, [Bind("Birthday")] User user)
     {
+      var currentUser = await this.CurrentUser(_context);
+      if (currentUser == null || currentUser.Id != id)
+      {
+        return Unauthorized();
+      }
       if (id != user.Id)
       {
         return NotFound();
@@ -162,7 +174,7 @@ namespace FoodUp.Web.Controllers
 
     private User FindUser(string login)
     {
-      return _context.User.Where(x => x.Login == login).First();
+      return _context.User.Where(x => x.Login == login).FirstOrDefault();
     }
   }
 }
