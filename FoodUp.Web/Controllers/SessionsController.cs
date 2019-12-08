@@ -2,6 +2,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using FoodUp.Web.Data;
 using FoodUp.Web.Models;
+using FoodUp.Web.Services;
 using FoodUp.Web.Util;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -11,14 +12,16 @@ namespace FoodUp.Web.Controllers
   public class SessionsController : Controller
   {
     private readonly FoodUpContext _context;
+    private IUserService _userService;
 
     public SessionsController(FoodUpContext context)
     {
       _context = context;
+      _userService = new UserService(this, _context);
     }
     public async Task<IActionResult> Create()
     {
-      if (await this.CurrentUser(_context) != null)
+      if (await _userService.CurrentUser() != null)
       {
         return Redirect("/");
       }
@@ -29,18 +32,18 @@ namespace FoodUp.Web.Controllers
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create(string login, string password)
     {
-      if (await this.CurrentUser(_context) != null)
+      if (await _userService.CurrentUser() != null)
       {
         return Redirect("/");
       }
-      if (!UserExists(login))
+      if (!await _userService.UserExists(login))
       {
         return NotFound("Invalid login or password");
       }
-      var user = FindUser(login);
+      var user = await _userService.FindByLogin(login);
       if (PasswordMatches(user, password))
       {
-        AppendUserSessionCookie(user);
+        AppendSessionCookie(user);
         return Redirect("/");
       }
       return Unauthorized("Invalid login or password");
@@ -48,18 +51,8 @@ namespace FoodUp.Web.Controllers
 
     public IActionResult Delete()
     {
-      Response.Cookies.Delete("_session");
+      RemoveSessionCookie();
       return Redirect("/");
-    }
-
-    private bool UserExists(string login)
-    {
-      return FindUser(login) != null;
-    }
-
-    private User FindUser(string login)
-    {
-      return _context.User.Where(x => x.Login == login).FirstOrDefault();
     }
 
     private bool PasswordMatches(User user, string password)
@@ -68,7 +61,7 @@ namespace FoodUp.Web.Controllers
       return BCrypt.Net.BCrypt.Verify(password, encryptedPassword);
     }
 
-    private void AppendUserSessionCookie(User user)
+    private void AppendSessionCookie(User user)
     {
       Response.Cookies.Append(
         "_session",
@@ -77,6 +70,11 @@ namespace FoodUp.Web.Controllers
         {
           HttpOnly = true
         });
+    }
+
+    private void RemoveSessionCookie()
+    {
+      Response.Cookies.Delete("_session");
     }
   }
 }
