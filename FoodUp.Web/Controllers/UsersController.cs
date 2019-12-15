@@ -8,16 +8,19 @@ using Microsoft.EntityFrameworkCore;
 using FoodUp.Web.Data;
 using FoodUp.Web.Models;
 using FoodUp.Web.Util;
+using FoodUp.Web.Services;
 
 namespace FoodUp.Web.Controllers
 {
   public class UsersController : Controller
   {
     private readonly FoodUpContext _context;
+    private readonly IUserService _userService;
 
     public UsersController(FoodUpContext context)
     {
       _context = context;
+      _userService = new UserService(this, _context);
     }
 
     // GET: Users
@@ -57,7 +60,7 @@ namespace FoodUp.Web.Controllers
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create([Bind("Id,Login,Password,Birthday")] User user)
     {
-      if (UserExists(user.Login))
+      if (await _userService.UserExists(user.Login))
       {
         return UnprocessableEntity("This login has been taken");
       }
@@ -79,7 +82,7 @@ namespace FoodUp.Web.Controllers
         return NotFound();
       }
 
-      var currentUser = await this.CurrentUser(_context);
+      var currentUser = await _userService.CurrentUser();
       if (currentUser == null || currentUser.Id != id)
       {
         return Unauthorized();
@@ -100,7 +103,7 @@ namespace FoodUp.Web.Controllers
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Edit(int id, [Bind("Birthday")] User user)
     {
-      var currentUser = await this.CurrentUser(_context);
+      var currentUser = await _userService.CurrentUser();
       if (currentUser == null || currentUser.Id != id)
       {
         return Unauthorized();
@@ -119,7 +122,7 @@ namespace FoodUp.Web.Controllers
         }
         catch (DbUpdateConcurrencyException)
         {
-          if (!UserExists(user.Id))
+          if (!await _userService.UserExists(user.Id))
           {
             return NotFound();
           }
@@ -141,8 +144,7 @@ namespace FoodUp.Web.Controllers
         return NotFound();
       }
 
-      var user = await _context.User
-          .FirstOrDefaultAsync(m => m.Id == id);
+      var user = await _userService.FindById(id);
       if (user == null)
       {
         return NotFound();
@@ -156,25 +158,10 @@ namespace FoodUp.Web.Controllers
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
-      var user = await _context.User.FindAsync(id);
+      var user = await _userService.FindById(id);
       _context.User.Remove(user);
       await _context.SaveChangesAsync();
       return RedirectToAction(nameof(Index));
-    }
-
-    private bool UserExists(int id)
-    {
-      return _context.User.Any(e => e.Id == id);
-    }
-
-    private bool UserExists(string login)
-    {
-      return FindUser(login) != null;
-    }
-
-    private User FindUser(string login)
-    {
-      return _context.User.Where(x => x.Login == login).FirstOrDefault();
     }
   }
 }
