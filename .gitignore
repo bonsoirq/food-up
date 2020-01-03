@@ -433,7 +433,7 @@ $RECYCLE.BIN/
 !.vscode/extensions.json
 
 ## SQLite
-*.db
+*.db*
 
 ## dotenv
 .env
