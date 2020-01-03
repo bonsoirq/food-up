@@ -22,7 +22,49 @@ namespace FoodUp.Web.Controllers
     // GET: Recipes
     public async Task<IActionResult> Index()
     {
+      ViewBag.CurrentUser = await _userService.CurrentUser();
       return View(await _context.Recipe.ToListAsync());
+    }
+
+    // GET: Recipes/Details/5
+    public async Task<IActionResult> Details(int? id)
+    {
+      ViewBag.CurrentUser = await _userService.CurrentUser();
+      if (id == null)
+      {
+        return NotFound();
+      }
+
+      var recipe = await _context.Recipe
+          .FirstOrDefaultAsync(m => m.Id == id);
+      if (recipe == null)
+      {
+        return NotFound();
+      }
+
+      return View(recipe);
+    }
+
+    // GET: Recipes/Edit/5
+    public async Task<IActionResult> Edit(int? id)
+    {
+      if (id == null)
+      {
+        return NotFound();
+      }
+
+      var user = await _userService.CurrentUser();
+      var recipe = await _context.Recipe.FindAsync(id);
+      if (user == null || recipe.CreatorId != user.Id)
+      {
+        return Unauthorized("You are not authorized to access this page");
+      }
+
+      if (recipe == null)
+      {
+        return NotFound();
+      }
+      return View(recipe);
     }
 
     // GET: Recipes/Create
