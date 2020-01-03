@@ -35,12 +35,15 @@ namespace FoodUp.Web.Controllers
         return NotFound();
       }
 
+
       var recipe = await _context.Recipe
           .FirstOrDefaultAsync(m => m.Id == id);
       if (recipe == null)
       {
         return NotFound();
       }
+      var creator = await _userService.FindById(recipe.CreatorId);
+      ViewData["Creator"] = creator.Login;
 
       return View(recipe);
     }
@@ -48,14 +51,19 @@ namespace FoodUp.Web.Controllers
     // GET: Recipes/Edit/5
     public async Task<IActionResult> Edit(int? id)
     {
+      var user = ViewBag.CurrentUser = await _userService.CurrentUser();
+      if (user == null)
+      {
+        return Unauthorized("You are not authorized to access this page");
+      }
+
       if (id == null)
       {
         return NotFound();
       }
 
-      var user = await _userService.CurrentUser();
       var recipe = await _context.Recipe.FindAsync(id);
-      if (user == null || recipe.CreatorId != user.Id)
+      if (recipe.CreatorId != user.Id)
       {
         return Unauthorized("You are not authorized to access this page");
       }
@@ -63,6 +71,41 @@ namespace FoodUp.Web.Controllers
       if (recipe == null)
       {
         return NotFound();
+      }
+      return View(recipe);
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Edit(int id, [Bind("Title, Content")] Recipe patchedRecipe)
+    {
+      var user = ViewBag.CurrentUser = await _userService.CurrentUser();
+      if (user == null)
+      {
+        return Unauthorized("You are not authorized to access this page");
+      }
+
+      var recipe = await _context.Recipe.FindAsync(id);
+      if (recipe.CreatorId != user.Id)
+      {
+        return Unauthorized("You are not authorized to access this page");
+      }
+
+      recipe.Title = patchedRecipe.Title;
+      recipe.Content = patchedRecipe.Content;
+
+      if (ModelState.IsValid)
+      {
+        try
+        {
+          _context.Update(recipe);
+          await _context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+          throw;
+        }
+        return RedirectToAction(nameof(Index));
       }
       return View(recipe);
     }
