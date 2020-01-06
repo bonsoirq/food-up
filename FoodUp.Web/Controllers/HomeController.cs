@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using FoodUp.Web.Models;
 using FoodUp.Web.Data;
-using FoodUp.Web.Util;
 using System.Threading.Tasks;
 using FoodUp.Web.Services;
 

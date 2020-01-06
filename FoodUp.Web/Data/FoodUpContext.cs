@@ -17,5 +17,6 @@ namespace FoodUp.Web.Data
     }
 
     public DbSet<User> User { get; set; }
+    public DbSet<Recipe> Recipe { get; set; }
   }
 }

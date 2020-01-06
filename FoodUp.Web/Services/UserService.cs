@@ -54,9 +54,9 @@ namespace FoodUp.Web.Services
       return await _context.User.FirstOrDefaultAsync(x => x.Id == id);
     }
 
-    public Task<User> FindById(int? id)
+    public async Task<User> FindById(int? id)
     {
-      throw new System.NotImplementedException();
+      return await FindById(id ?? default(int));
     }
 
     public async Task<User> FindByLogin(string login)

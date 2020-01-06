@@ -5,4 +5,11 @@
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <p>
+        <a asp-controller="Recipes" asp-action="Index">Browse recipes</a>
+    </p>
+    @if (ViewBag.CurrentUser != null)
+    {
+        <a asp-controller="Recipes" asp-action="Create">Add new recipe</a>
+    }
 </div>
