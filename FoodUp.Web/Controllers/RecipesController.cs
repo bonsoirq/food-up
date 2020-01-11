@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using System.Threading.Tasks;
 using FoodUp.Web.Data;
 using FoodUp.Web.Models;
@@ -45,6 +47,9 @@ namespace FoodUp.Web.Controllers
       var creator = await _userService.FindById(recipe.CreatorId);
       ViewData["Creator"] = creator.Login;
 
+      var reviews = await _context.Review.Where(x => x.RecipeId == recipe.Id).ToListAsync();
+      ViewData["AverageRating"] = Math.Round(reviews.Average(x => x.Rating), 2);
+      ViewBag.Reviews = reviews;
       return View(recipe);
     }
 

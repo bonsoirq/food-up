@@ -17,6 +17,12 @@
             @ViewData["Creator"]
         </dd>
         <dt class = "col-sm-2">
+            Average rating
+        </dt>
+        <dd class = "col-sm-10">
+            @ViewData["AverageRating"] (@ViewBag.Reviews.Count)
+        </dd>
+        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Title)
         </dt>
         <dd class = "col-sm-10">
@@ -37,10 +43,86 @@
     <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
   </div>
+  <p>
+      <h4>Add a review: </h4>
+  </p>
+  <div>
+      <fieldset>
+          <div class="form-group">
+            <label for="rating">Rating:</label>
+            <select name="rating">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="comment">Comment:</label>
+            <textarea name="comment"></textarea>
+          </div>
+
+          @Html.AntiForgeryToken()
+          <button id="create-review" class="btn btn-primary" data-url="/Recipes/@Model.Id/Reviews/Create">Send review</button>
+      </fieldset>
+      <script>
+          window.onload = () => {
+            var button = $('#create-review');
+            button.on('click', () => {
+                var url = button.data('url');
+                $.ajax({
+                    method: 'POST',
+                    url: url,
+                    headers: {
+                      'RequestVerificationToken': $('[name=__RequestVerificationToken]').val()
+                    },
+                    data: {
+                        'Rating': $('[name=rating]').val(),
+                        'Comment': $('[name=comment]').val()
+                    }
+                }).done((data) => {
+                    $('tbody').append(`
+                    <tr>
+                            <th scope="row">${data.id}</th>
+                            <td>${data.rating}</td>
+                            <td>${data.comment}</td>
+                        </tr>
+                    `);
+                })
+            })
+          }
+      </script>
+  </div>
 }
 else
 {
   <div>
     <a asp-action="Index">Back to List</a>
+    <p>
+      <h4>Sign in to add a review</h4>
+    </p>
   </div>
 }
+<div>
+    <h4>Reviews</h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Rating</th>
+                <th scope="col">Comment</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in ViewBag.Reviews)
+            {
+              <tr>
+                <th scope="row">@item.Id</th>
+                <td>@item.Rating</td>
+                <td>@item.Comment</td>
+              </tr>
+            }
+        </tbody>
+    </table>
+</div>
