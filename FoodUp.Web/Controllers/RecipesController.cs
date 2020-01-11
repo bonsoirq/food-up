@@ -48,7 +48,7 @@ namespace FoodUp.Web.Controllers
       ViewData["Creator"] = creator.Login;
 
       var reviews = await _context.Review.Where(x => x.RecipeId == recipe.Id).ToListAsync();
-      ViewData["AverageRating"] = Math.Round(reviews.Average(x => x.Rating), 2);
+      ViewData["AverageRating"] = reviews.Count == 0 ? 0 : Math.Round(reviews.Average(x => x.Rating), 2);
       ViewBag.Reviews = reviews;
       return View(recipe);
     }
