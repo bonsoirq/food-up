@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using System.Threading.Tasks;
 using FoodUp.Web.Data;
 using FoodUp.Web.Models;
@@ -45,6 +47,9 @@ namespace FoodUp.Web.Controllers
       var creator = await _userService.FindById(recipe.CreatorId);
       ViewData["Creator"] = creator.Login;
 
+      var reviews = await _context.Review.Where(x => x.RecipeId == recipe.Id).ToListAsync();
+      ViewData["AverageRating"] = reviews.Count == 0 ? 0 : Math.Round(reviews.Average(x => x.Rating), 2);
+      ViewBag.Reviews = reviews;
       return View(recipe);
     }
 
@@ -138,6 +143,21 @@ namespace FoodUp.Web.Controllers
         return RedirectToAction(nameof(RecipesController.Index));
       }
       return View(recipe);
+    }
+
+    [HttpPost, ActionName("Delete")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Delete(int id)
+    {
+      var recipe = await _context.Recipe
+        .FirstOrDefaultAsync(m => m.Id == id);
+      if (recipe == null )
+      {
+        return NotFound();
+      }
+      _context.Recipe.Remove(recipe);
+      await _context.SaveChangesAsync();
+      return RedirectToAction(nameof(Index));
     }
   }
 }

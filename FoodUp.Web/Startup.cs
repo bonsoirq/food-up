@@ -58,6 +58,10 @@ namespace FoodUp.Web
         endpoints.MapControllerRoute(
                   name: "default",
                   pattern: "{controller=Home}/{action=Index}/{id?}");
+        endpoints.MapControllerRoute(
+          name: "reviews",
+          pattern: "Recipes/{recipeId}/{controller}/{action=Index}"
+        );
       });
       DotEnv.Config();
     }
