@@ -1,0 +1,597 @@
+{
+  "id": "47d10329-0c09-4ab1-b123-0f82efd2ce22",
+  "version": "2.0",
+  "name": "FoodUp.Tests.E2E",
+  "url": "https://localhost:5001/",
+  "tests": [{
+    "id": "2ba32546-de14-4d67-b7f6-a9f0a9039c30",
+    "name": "Invalid login attempt",
+    "commands": [{
+      "id": "ddb25c5f-9be6-4cbb-84e5-d2873b0abe4a",
+      "comment": "",
+      "command": "open",
+      "target": "https://localhost:5001/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "8eca179c-920d-4542-abdf-e1932bfa19fc",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "731x777",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "f2d604c5-375c-41ce-8c5f-b1cf6721f5f6",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Sign In",
+      "targets": [
+        ["linkText=Sign In", "linkText"],
+        ["css=.nav-item:nth-child(4) > .nav-link", "css:finder"],
+        ["xpath=//a[contains(text(),'Sign In')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '/Sessions/Create')]", "xpath:href"],
+        ["xpath=//li[4]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Sign In')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "6781d6c7-c424-4236-bbcc-330ea73e4e71",
+      "comment": "",
+      "command": "click",
+      "target": "id=Login",
+      "targets": [
+        ["id=Login", "id"],
+        ["name=Login", "name"],
+        ["css=#Login", "css:finder"],
+        ["xpath=//input[@id='Login']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "23ccea6b-4491-4b1e-9682-be3bf6a97723",
+      "comment": "",
+      "command": "type",
+      "target": "id=Login",
+      "targets": [
+        ["id=Login", "id"],
+        ["name=Login", "name"],
+        ["css=#Login", "css:finder"],
+        ["xpath=//input[@id='Login']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "nonexistinguser"
+    }, {
+      "id": "a10bc486-3d26-4fa1-9470-d1e5aaa14c08",
+      "comment": "",
+      "command": "type",
+      "target": "id=Password",
+      "targets": [
+        ["id=Password", "id"],
+        ["name=Password", "name"],
+        ["css=#Password", "css:finder"],
+        ["xpath=//input[@id='Password']", "xpath:attributes"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "xcasdfdasf"
+    }, {
+      "id": "9c0ad2f0-fc8b-4eb4-a1b7-ee8a8ac4048f",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn",
+      "targets": [
+        ["css=.btn", "css:finder"],
+        ["xpath=//input[@value='Sign In']", "xpath:attributes"],
+        ["xpath=//div[3]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "7d7fcdcf-18dc-40b4-b6d1-baa38870c5b7",
+      "comment": "",
+      "command": "click",
+      "target": "css=html",
+      "targets": [
+        ["css=html", "css:finder"],
+        ["xpath=//html", "xpath:position"],
+        ["xpath=//html[contains(.,'Invalid login or password')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "26f9cee3-f78b-4f49-9e11-75d2d89da235",
+      "comment": "",
+      "command": "pause",
+      "target": "",
+      "targets": [],
+      "value": "1000"
+    }, {
+      "id": "4cda531f-e3a8-4f2d-a2ed-1117012c5da5",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=pre",
+      "targets": [],
+      "value": "Invalid login or password"
+    }]
+  }, {
+    "id": "16d34e6f-fbe0-48d9-beeb-96bc14786ce8",
+    "name": "Sign in and add recipe",
+    "commands": [{
+      "id": "d7a7d1a0-5141-48da-826d-9550884cb9cd",
+      "comment": "",
+      "command": "open",
+      "target": "https://localhost:5001/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "9bb436ee-ab8a-4be7-a8ee-2af4c1a85d5f",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "731x777",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "df78c0cb-b03b-4d56-9dd9-3bc9dc7062c1",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Sign In",
+      "targets": [
+        ["linkText=Sign In", "linkText"],
+        ["css=.nav-item:nth-child(4) > .nav-link", "css:finder"],
+        ["xpath=//a[contains(text(),'Sign In')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '/Sessions/Create')]", "xpath:href"],
+        ["xpath=//li[4]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Sign In')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "c7ead256-9e2e-454c-a8b4-e55409e0ae71",
+      "comment": "",
+      "command": "click",
+      "target": "id=Login",
+      "targets": [
+        ["id=Login", "id"],
+        ["name=Login", "name"],
+        ["css=#Login", "css:finder"],
+        ["xpath=//input[@id='Login']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "f021668e-9eed-4bbd-95bc-a8a582287149",
+      "comment": "",
+      "command": "type",
+      "target": "id=Login",
+      "targets": [
+        ["id=Login", "id"],
+        ["name=Login", "name"],
+        ["css=#Login", "css:finder"],
+        ["xpath=//input[@id='Login']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "user"
+    }, {
+      "id": "bc6b801a-b36e-4ee8-8426-90fceb01e98e",
+      "comment": "",
+      "command": "type",
+      "target": "id=Password",
+      "targets": [
+        ["id=Password", "id"],
+        ["name=Password", "name"],
+        ["css=#Password", "css:finder"],
+        ["xpath=//input[@id='Password']", "xpath:attributes"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "password"
+    }, {
+      "id": "9c3c1e41-6d76-4887-8534-0aca3121cd2a",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn",
+      "targets": [
+        ["css=.btn", "css:finder"],
+        ["xpath=//input[@value='Sign In']", "xpath:attributes"],
+        ["xpath=//div[3]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "8c9e4af9-4cc6-4d07-a568-1f5aa710cb2d",
+      "comment": "",
+      "command": "pause",
+      "target": "",
+      "targets": [],
+      "value": "1000"
+    }, {
+      "id": "bf65e776-03df-4cbc-a742-166ade2f5fab",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Add new recipe",
+      "targets": [
+        ["linkText=Add new recipe", "linkText"],
+        ["css=a:nth-child(4)", "css:finder"],
+        ["xpath=//a[contains(text(),'Add new recipe')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '/Recipes/Create')]", "xpath:href"],
+        ["xpath=//main/div/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Add new recipe')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "b1351da8-0548-48c1-8305-5654607f1f25",
+      "comment": "",
+      "command": "click",
+      "target": "id=Title",
+      "targets": [
+        ["id=Title", "id"],
+        ["name=Title", "name"],
+        ["css=#Title", "css:finder"],
+        ["xpath=//input[@id='Title']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "76ec881e-c4c9-4956-a0e6-d30eac98508b",
+      "comment": "",
+      "command": "type",
+      "target": "id=Title",
+      "targets": [
+        ["id=Title", "id"],
+        ["name=Title", "name"],
+        ["css=#Title", "css:finder"],
+        ["xpath=//input[@id='Title']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "Selenium Recipe"
+    }, {
+      "id": "eaf6d3f8-c16c-43ae-8ee8-a564dcaa2642",
+      "comment": "",
+      "command": "click",
+      "target": "id=Content",
+      "targets": [
+        ["id=Content", "id"],
+        ["name=Content", "name"],
+        ["css=#Content", "css:finder"],
+        ["xpath=//textarea[@id='Content']", "xpath:attributes"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "b729dc3d-d03e-45c8-afd0-893ecf87664a",
+      "comment": "",
+      "command": "click",
+      "target": "id=Content",
+      "targets": [
+        ["id=Content", "id"],
+        ["name=Content", "name"],
+        ["css=#Content", "css:finder"],
+        ["xpath=//textarea[@id='Content']", "xpath:attributes"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "bb36235a-e3fc-4934-8f86-a174860da685",
+      "comment": "",
+      "command": "type",
+      "target": "id=Content",
+      "targets": [
+        ["id=Content", "id"],
+        ["name=Content", "name"],
+        ["css=#Content", "css:finder"],
+        ["xpath=//textarea[@id='Content']", "xpath:attributes"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": "Selenium Recipe Content\\nWith some line breaks"
+    }, {
+      "id": "3e4db69e-36dc-4c2e-98be-2a06e175dac6",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn",
+      "targets": [
+        ["css=.btn", "css:finder"],
+        ["xpath=//input[@value='Create']", "xpath:attributes"],
+        ["xpath=//div[3]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "e10ff394-f700-40bc-a69c-a223d1b9e7cb",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=tr:last-child > td:nth-child(2)",
+      "targets": [
+        ["css=tr:nth-child(4) > td:nth-child(2)", "css:finder"],
+        ["xpath=//tr[4]/td[2]", "xpath:position"]
+      ],
+      "value": " Selenium Recipe Content With some line breaks "
+    }, {
+      "id": "dfa313a1-5b7a-47c8-ac2c-078824880cb6",
+      "comment": "",
+      "command": "click",
+      "target": "css=tr:last-child form > .btn",
+      "targets": [
+        ["css=tr:nth-child(4) form > .btn", "css:finder"],
+        ["xpath=(//input[@value='Delete'])[4]", "xpath:attributes"],
+        ["xpath=//tr[4]/td[3]/form/input[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "dfc02257-6241-4ec5-9cd0-25f0fa7418a3",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Sign Out",
+      "targets": [
+        ["linkText=Sign Out", "linkText"],
+        ["css=.nav-item:nth-child(3) > .nav-link", "css:finder"],
+        ["xpath=//a[contains(text(),'Sign Out')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '/Sessions/Delete')]", "xpath:href"],
+        ["xpath=//li[3]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Sign Out')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "85dd68b9-98ea-4faf-bbab-b8aa8b3c706f",
+    "name": "Add review to recipe",
+    "commands": [{
+      "id": "304821f2-7767-49d4-ba34-2fa5d5b20ed9",
+      "comment": "",
+      "command": "open",
+      "target": "https://localhost:5001/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "be62228b-803b-4b47-8db2-91c53ac7c058",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "731x777",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "209b68c5-019e-4d61-8412-db9a811c743a",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Sign In",
+      "targets": [
+        ["linkText=Sign In", "linkText"],
+        ["css=.nav-item:nth-child(4) > .nav-link", "css:finder"],
+        ["xpath=//a[contains(text(),'Sign In')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '/Sessions/Create')]", "xpath:href"],
+        ["xpath=//li[4]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Sign In')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "8c621093-adb2-4ba3-8e84-86c66fa0e908",
+      "comment": "",
+      "command": "click",
+      "target": "id=Login",
+      "targets": [
+        ["id=Login", "id"],
+        ["name=Login", "name"],
+        ["css=#Login", "css:finder"],
+        ["xpath=//input[@id='Login']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "7c82f1db-2ee1-473d-aad6-1fe9cc242e8f",
+      "comment": "",
+      "command": "type",
+      "target": "id=Login",
+      "targets": [
+        ["id=Login", "id"],
+        ["name=Login", "name"],
+        ["css=#Login", "css:finder"],
+        ["xpath=//input[@id='Login']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "user"
+    }, {
+      "id": "857cd1fe-1345-4afe-a2f9-6f1a56417dc0",
+      "comment": "",
+      "command": "type",
+      "target": "id=Password",
+      "targets": [
+        ["id=Password", "id"],
+        ["name=Password", "name"],
+        ["css=#Password", "css:finder"],
+        ["xpath=//input[@id='Password']", "xpath:attributes"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "password"
+    }, {
+      "id": "e776100b-7e32-4a8b-a6ef-8ebabfd81709",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn",
+      "targets": [
+        ["css=.btn", "css:finder"],
+        ["xpath=//input[@value='Sign In']", "xpath:attributes"],
+        ["xpath=//div[3]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "7941384a-8a12-40ce-8062-611d574e8b2b",
+      "comment": "",
+      "command": "click",
+      "target": "css=html",
+      "targets": [
+        ["css=html", "css:finder"],
+        ["xpath=//html", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "4b75afb9-6121-4c13-9596-13ebe5c90cd9",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Browse recipes",
+      "targets": [
+        ["linkText=Browse recipes", "linkText"],
+        ["css=p:nth-child(3) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Browse recipes')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '/Recipes')]", "xpath:href"],
+        ["xpath=//p[2]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Browse recipes')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "522d3485-9155-4ed8-b3c0-1927ac0364a8",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Details",
+      "targets": [
+        ["linkText=Details", "linkText"],
+        ["css=tr:nth-child(1) .btn-primary", "css:finder"],
+        ["xpath=//a[contains(text(),'Details')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '/Recipes/Details/1')]", "xpath:href"],
+        ["xpath=//a[2]", "xpath:position"],
+        ["xpath=//a[contains(.,'Details')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "fe714853-ec28-403c-a7d4-99c0549c375c",
+      "comment": "",
+      "command": "mouseDownAt",
+      "target": "css=option:nth-child(4)",
+      "targets": [
+        ["css=option:nth-child(4)", "css:finder"],
+        ["xpath=//option[4]", "xpath:position"],
+        ["xpath=//option[contains(.,'4')]", "xpath:innerText"]
+      ],
+      "value": "-161.64999389648438,-254.4166717529297"
+    }, {
+      "id": "8aad00de-12a6-4de6-92b8-13a586d68b94",
+      "comment": "",
+      "command": "mouseMoveAt",
+      "target": "css=option:nth-child(4)",
+      "targets": [
+        ["css=option:nth-child(4)", "css:finder"],
+        ["xpath=//option[4]", "xpath:position"],
+        ["xpath=//option[contains(.,'4')]", "xpath:innerText"]
+      ],
+      "value": "-161.64999389648438,-254.4166717529297"
+    }, {
+      "id": "12027081-ead5-40d6-97c7-d0b748e43362",
+      "comment": "",
+      "command": "mouseUpAt",
+      "target": "css=option:nth-child(4)",
+      "targets": [
+        ["css=option:nth-child(4)", "css:finder"],
+        ["xpath=//option[4]", "xpath:position"],
+        ["xpath=//option[contains(.,'4')]", "xpath:innerText"]
+      ],
+      "value": "-161.64999389648438,-254.4166717529297"
+    }, {
+      "id": "81672205-756f-4e60-a8af-be00d22f3163",
+      "comment": "",
+      "command": "select",
+      "target": "name=rating",
+      "targets": [],
+      "value": "label=4"
+    }, {
+      "id": "7acfc0fe-d134-45eb-88bc-e1d14038c076",
+      "comment": "",
+      "command": "click",
+      "target": "css=option:nth-child(4)",
+      "targets": [
+        ["css=option:nth-child(4)", "css:finder"],
+        ["xpath=//option[4]", "xpath:position"],
+        ["xpath=//option[contains(.,'4')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "d481e2af-e894-456e-9747-17c435ac0068",
+      "comment": "",
+      "command": "click",
+      "target": "name=comment",
+      "targets": [
+        ["name=comment", "name"],
+        ["css=textarea", "css:finder"],
+        ["xpath=//textarea[@name='comment']", "xpath:attributes"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "572c3548-b3bf-4626-84a8-29112fef28da",
+      "comment": "",
+      "command": "type",
+      "target": "name=comment",
+      "targets": [
+        ["name=comment", "name"],
+        ["css=textarea", "css:finder"],
+        ["xpath=//textarea[@name='comment']", "xpath:attributes"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": "Selenium review"
+    }, {
+      "id": "96450419-0e5d-4e99-8774-6549a5f293e2",
+      "comment": "",
+      "command": "click",
+      "target": "id=create-review",
+      "targets": [
+        ["id=create-review", "id"],
+        ["css=#create-review", "css:finder"],
+        ["xpath=//button[@id='create-review']", "xpath:attributes"],
+        ["xpath=//fieldset/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Send review')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "3376f475-e41e-46d9-8ccf-b30d29f59e66",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "id=create-review",
+      "targets": [
+        ["id=create-review", "id"],
+        ["css=#create-review", "css:finder"],
+        ["xpath=//button[@id='create-review']", "xpath:attributes"],
+        ["xpath=//fieldset/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Send review')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "3955a526-1457-4353-866e-a8fab4b1fe3a",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "id=create-review",
+      "targets": [
+        ["id=create-review", "id"],
+        ["css=#create-review", "css:finder"],
+        ["xpath=//button[@id='create-review']", "xpath:attributes"],
+        ["xpath=//fieldset/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Send review')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "4e96052b-4705-48ef-9714-9eae1ec9cfeb",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=tr:last-child > td:nth-child(3)",
+      "targets": [
+        ["css=tr:nth-child(7) > td:nth-child(3)", "css:finder"],
+        ["xpath=//tr[7]/td[2]", "xpath:position"],
+        ["xpath=//td[contains(.,'Selenium review')]", "xpath:innerText"]
+      ],
+      "value": "Selenium review"
+    }, {
+      "id": "4fd33c1c-6526-4553-8e55-93f16d75c8f1",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Sign Out",
+      "targets": [
+        ["linkText=Sign Out", "linkText"],
+        ["css=.nav-item:nth-child(3) > .nav-link", "css:finder"],
+        ["xpath=//a[contains(text(),'Sign Out')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '/Sessions/Delete')]", "xpath:href"],
+        ["xpath=//li[3]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Sign Out')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "9580e5de-71f9-40bd-8db8-7caa815da568",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["2ba32546-de14-4d67-b7f6-a9f0a9039c30"]
+  }],
+  "urls": ["https://localhost:5001/"],
+  "plugins": []
+}
