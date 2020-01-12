@@ -144,5 +144,20 @@ namespace FoodUp.Web.Controllers
       }
       return View(recipe);
     }
+
+    [HttpPost, ActionName("Delete")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Delete(int id)
+    {
+      var recipe = await _context.Recipe
+        .FirstOrDefaultAsync(m => m.Id == id);
+      if (recipe == null )
+      {
+        return NotFound();
+      }
+      _context.Recipe.Remove(recipe);
+      await _context.SaveChangesAsync();
+      return RedirectToAction(nameof(Index));
+    }
   }
 }
