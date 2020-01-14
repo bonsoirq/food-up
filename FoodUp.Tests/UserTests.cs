@@ -1,4 +1,4 @@
-using FoodUp.Web.Models;
+    using FoodUp.Web.Models;
 using NUnit.Framework;
 
 namespace FoodUp.Tests

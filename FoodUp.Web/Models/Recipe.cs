@@ -7,5 +7,10 @@ namespace FoodUp.Web.Models
         public string Content { get; set; }
         public int CreatorId { get; set; }
 
+        public string GetRecipeFullName()
+        {
+            return $"{Id}  - {Title}";
+        }
+
     }
 }
