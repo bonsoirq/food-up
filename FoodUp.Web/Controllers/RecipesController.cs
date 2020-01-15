@@ -82,7 +82,7 @@ namespace FoodUp.Web.Controllers
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int id, [Bind("Title, Content")] Recipe patchedRecipe)
+    public async Task<IActionResult> Edit(int id, [Bind("Title, Ingredients, Content")] Recipe patchedRecipe)
     {
       var user = ViewBag.CurrentUser = await _userService.CurrentUser();
       if (user == null)
@@ -97,6 +97,7 @@ namespace FoodUp.Web.Controllers
       }
 
       recipe.Title = patchedRecipe.Title;
+      recipe.Ingredients = patchedRecipe.Ingredients;
       recipe.Content = patchedRecipe.Content;
 
       if (ModelState.IsValid)
@@ -128,7 +129,7 @@ namespace FoodUp.Web.Controllers
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create([Bind("Id,Title,Content")] Recipe recipe)
+    public async Task<IActionResult> Create([Bind("Id, Title, Ingredients, Content")] Recipe recipe)
     {
       var user = ViewBag.CurrentUser = await _userService.CurrentUser();
       if (user == null)
