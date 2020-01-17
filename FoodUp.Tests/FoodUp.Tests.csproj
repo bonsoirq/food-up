@@ -22,5 +22,6 @@
     <Folder Include="Models\" />
     <Folder Include="Services\" />
     <Folder Include="Mocks\" />
+    <Folder Include="Util\" />
   </ItemGroup>
 </Project>
