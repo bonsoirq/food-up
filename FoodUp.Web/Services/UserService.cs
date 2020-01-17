@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Text.Json;
 using System.Threading.Tasks;
+using FoodUp.Web.Controllers;
 using FoodUp.Web.Data;
 using FoodUp.Web.Models;
 using FoodUp.Web.Util;
@@ -13,10 +14,10 @@ namespace FoodUp.Web.Services
   public class UserService : IUserService
   {
     private FoodUpContext _context;
-    private Controller _controller;
+    private CookieController _controller;
 
     private User _user;
-    public UserService(Controller controller, FoodUpContext context)
+    public UserService(CookieController controller, FoodUpContext context)
     {
       _controller = controller;
       _context = context;
@@ -28,7 +29,7 @@ namespace FoodUp.Web.Services
       {
         return _user;
       }
-      if (!_controller.Request.Cookies.ContainsKey("_session"))
+      if (!_controller.ContainsCookie("_session"))
       {
         return null;
       }

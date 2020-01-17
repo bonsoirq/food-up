@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FoodUp.Web.Controllers
 {
-  public class RecipesController : Controller
-  {
+  public class RecipesController : CookieController
+    {
 
     private readonly FoodUpContext _context;
     private readonly IUserService _userService;
@@ -160,5 +160,5 @@ namespace FoodUp.Web.Controllers
       await _context.SaveChangesAsync();
       return RedirectToAction(nameof(Index));
     }
-  }
+    }
 }

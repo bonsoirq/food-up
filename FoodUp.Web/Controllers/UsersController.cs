@@ -12,8 +12,8 @@ using FoodUp.Web.Services;
 
 namespace FoodUp.Web.Controllers
 {
-  public class UsersController : Controller
-  {
+  public class UsersController : CookieController
+    {
     private readonly FoodUpContext _context;
     private readonly IUserService _userService;
 

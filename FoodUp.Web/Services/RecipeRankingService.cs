@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FoodUp.Web.Models;
 
-namespace FoodUp.Web.Models
+namespace FoodUp.Web.Services
 {
     public class RecipeRankingService
     {

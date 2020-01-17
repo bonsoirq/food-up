@@ -9,8 +9,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FoodUp.Web.Controllers
 {
-  public class SessionsController : Controller
-  {
+  public class SessionsController : CookieController
+    {
     private readonly FoodUpContext _context;
     private IUserService _userService;
 
