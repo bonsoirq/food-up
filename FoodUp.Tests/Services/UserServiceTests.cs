@@ -45,14 +45,6 @@ namespace FoodUp.Tests
         }
 
         [Test]
-        public void UserServiceDoesNotContainSession()
-        {
-            var task = userService.CurrentUser();
-            task.Wait();
-            Assert.IsNull(task.Result);
-        }
-
-        [Test]
         public void UserServiceFindUserById()
         {
             var task = userService.FindById(default(int));

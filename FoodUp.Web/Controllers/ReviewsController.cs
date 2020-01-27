@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FoodUp.Web.Controllers
 {
-  public class ReviewsController : CookieController
+  public class ReviewsController : Controller
     {
 
     private readonly FoodUpContext _context;

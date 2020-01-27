@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FoodUp.Web.Controllers
 {
-  public class RecipesController : CookieController
+  public class RecipesController : Controller
     {
 
     private readonly FoodUpContext _context;

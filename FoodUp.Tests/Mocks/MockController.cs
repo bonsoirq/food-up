@@ -9,7 +9,7 @@ using FoodUp.Web.Controllers;
 
 namespace FoodUp.Tests.Mocks
 {
-    public class MockController : CookieController
+    public class MockController : Controller
     {
         private readonly FoodUpContext _context;
         private readonly IUserService _userService;

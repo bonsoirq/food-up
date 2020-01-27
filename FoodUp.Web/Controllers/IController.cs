@@ -7,12 +7,4 @@ namespace FoodUp.Web.Controllers
     {
         bool ContainsCookie(string key);
     }
-
-    public class CookieController : Controller, ICookieGetter
-    {
-        virtual public bool ContainsCookie(string key)
-        {
-            return Request.Cookies.ContainsKey(key);
-        }
-    }
 }

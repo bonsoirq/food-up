@@ -12,7 +12,7 @@ using FoodUp.Web.Services;
 
 namespace FoodUp.Web.Controllers
 {
-  public class UsersController : CookieController
+  public class UsersController : Controller
     {
     private readonly FoodUpContext _context;
     private readonly IUserService _userService;

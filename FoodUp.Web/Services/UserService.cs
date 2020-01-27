@@ -14,10 +14,10 @@ namespace FoodUp.Web.Services
   public class UserService : IUserService
   {
     private FoodUpContext _context;
-    private CookieController _controller;
+    private Controller _controller;
 
     private User _user;
-    public UserService(CookieController controller, FoodUpContext context)
+    public UserService(Controller controller, FoodUpContext context)
     {
       _controller = controller;
       _context = context;
@@ -29,7 +29,7 @@ namespace FoodUp.Web.Services
       {
         return _user;
       }
-      if (!_controller.ContainsCookie("_session"))
+      if (!_controller.Request.Cookies.ContainsKey("_session"))
       {
         return null;
       }
