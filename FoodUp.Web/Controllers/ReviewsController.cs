@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 namespace FoodUp.Web.Controllers
 {
   public class ReviewsController : Controller
-  {
+    {
 
     private readonly FoodUpContext _context;
     private readonly IUserService _userService;
@@ -46,5 +46,5 @@ namespace FoodUp.Web.Controllers
       }
       return UnprocessableEntity();
     }
-  }
+    }
 }

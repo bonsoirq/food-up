@@ -9,7 +9,7 @@ using FoodUp.Web.Services;
 namespace FoodUp.Web.Controllers
 {
   public class HomeController : Controller
-  {
+    {
     private readonly ILogger<HomeController> _logger;
     private readonly FoodUpContext _context;
     private readonly IUserService _userService;
@@ -39,5 +39,5 @@ namespace FoodUp.Web.Controllers
     {
       return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
-  }
+    }
 }

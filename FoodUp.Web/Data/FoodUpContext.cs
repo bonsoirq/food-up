@@ -16,7 +16,7 @@ namespace FoodUp.Web.Data
           .HasName("AK_Login");
     }
 
-    public DbSet<User> User { get; set; }
+    public virtual DbSet<User> User { get; set; }
     public DbSet<Recipe> Recipe { get; set; }
     public DbSet<Review> Review { get; set; }
   }

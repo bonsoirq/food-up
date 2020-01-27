@@ -1,4 +1,5 @@
 ﻿using FoodUp.Web.Models;
+using FoodUp.Web.Services;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
