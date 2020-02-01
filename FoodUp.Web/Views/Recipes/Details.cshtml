@@ -88,13 +88,18 @@
                         'Comment': $('[name=comment]').val()
                     }
                 }).done((data) => {
-                    $('tbody').append(`
-                    <tr>
+                    var row = $(`
+                        <tr>
                             <th scope="row">${data.id}</th>
                             <td>${data.rating}</td>
                             <td>${data.comment}</td>
                         </tr>
                     `);
+                    $('tbody').append(row);
+                }).fail(({ responseJSON: { value: { error } }}) => {
+                    if (error === 'multiple_reviews') {
+                        alert("Only one review is allowed per user")
+                    }
                 })
             })
           }
