@@ -31,11 +31,20 @@ namespace FoodUp.Web.Controllers
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create(int recipeId, [Bind("Id,Rating,Comment")] Review review)
     {
-      var user = ViewBag.CurrentUser = await _userService.CurrentUser();
+      User user = ViewBag.CurrentUser = await _userService.CurrentUser();
       if (user == null)
       {
         return Unauthorized("You are not authorized to access this page");
       }
+      var reviewExists = await _context.Review
+        .Where(x => x.ReviewerId == user.Id)
+        .Where(x => x.RecipeId == recipeId)
+        .FirstOrDefaultAsync() != null;
+
+      if (reviewExists) {
+        return UnprocessableEntity(Json(new { error = "multiple_reviews" }));
+      }
+
       review.ReviewerId = user.Id;
       review.RecipeId = recipeId;
       if (ModelState.IsValid)
